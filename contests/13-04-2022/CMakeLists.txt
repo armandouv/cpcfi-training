@@ -1,0 +1,9 @@
+cmake_minimum_required(VERSION 3.21)
+project(13-04-2022)
+
+set(CMAKE_CXX_STANDARD 20)
+
+add_executable(A A/A.cpp)
+add_executable(B B/B.cpp)
+add_executable(C C/C.cpp)
+
