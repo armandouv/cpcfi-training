@@ -16,10 +16,10 @@ typedef long long ll;
  *
  * Consider sum(n) the sum of all positive integers up to n. The formula to calculate this number is n * (n + 1) / 2.
  *
- * If x <= arr[k], perform a binary search on the numbers from 1 to k to find the minimum number n such that
- * sum(n) >= x. Namely, search for x in the sums, and if it is not found, return n such that sum(n) is the smallest sum
- * greater than x. This number will be the number of messages to print, and we can see the problem as finding the
- * minimum number of messages that exceed the allowed number of emojis.
+ * If x <= arr[k], perform a binary search on the sum of the numbers from 1 to k to find the minimum sum that is >= x.
+ * Namely, search for x in the sums, and if it is not found, return n such that sum(n) is the smallest one
+ * greater than x. This number will be the number of messages to print, since it is the minimum number of messages
+ * that exceed or contain the same amount of the allowed number of emojis.
  *
  * Else, we can safely print all k messages from the first half of the triangle, but now we need to find the appropriate
  * number of messages to print from the second half, starting with the message with k - 1 emojis. Conversely, we can
@@ -28,7 +28,8 @@ typedef long long ll;
  * number of messages to avoid printing as follows:
  * - Assume y = (k^2 - sum(n)) is the total number of emojis that will be printed if we avoid printing the last n
  * messages.
- * - Find the minimum number n from 1 to k - 1 such that y >= x.
+ * - Find the minimum number y from n = 1 to k - 1 such that y >= x. Found n will be the correct number of messages
+ * to avoid printing.
  *
  * In the previous case, we could use standard binary search because the sums were directly proportional to the numbers.
  * However, we now have that y is an inversely proportional function. As a consequence, if we want to perform a
@@ -81,8 +82,9 @@ ll get_sum(ll n) {
 
 
 /*
- * Returns the minimum number n such that get_value(n) is >= to x. If reverse = true, it is assumed that get_value is an
- * inversely proportional function, and thus search is performed in a reverse fashion.
+ * Returns n such that get_value(n) is the minimum value that is >= x.
+ * If reverse = true, it is assumed that get_value is an inversely proportional function, and thus search is performed
+ * in a reverse fashion.
  */
 ll sums_binary_search(ll start, ll end, ll x, const function<ll(ll)> &get_value, bool reverse) {
     if (start > end) return reverse ? end : start;
