@@ -53,9 +53,6 @@ void solve() {
     int t;
     cin >> t;
 
-    vector<ll> sums;
-    sums.push_back(0);
-
     for (auto i = 0; i < t; i++) {
         ll k, x;
         cin >> k >> x;
